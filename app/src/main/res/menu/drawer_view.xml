@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_of_verbs"
+            android:icon="@drawable/ic_dashboard"
+            android:title="List of verbs" />
+        <item
+            android:id="@+id/nav_learning"
+            android:icon="@drawable/ic_headset"
+            android:title="Learning" />
+        <item
+            android:id="@+id/nav_training"
+            android:icon="@drawable/ic_event"
+            android:title="Training" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_forum"
+            android:title="About" />
+    </group>
+
+<!--    <item android:title="Sub items">
+        <menu>
+            <item
+                android:icon="@drawable/ic_dashboard"
+                android:title="Sub item 1" />
+            <item
+                android:icon="@drawable/ic_forum"
+                android:title="Sub item 2" />
+        </menu>
+    </item>-->
+
+</menu>
