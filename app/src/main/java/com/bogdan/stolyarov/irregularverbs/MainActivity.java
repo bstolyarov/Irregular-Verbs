@@ -14,9 +14,12 @@ import android.view.MenuItem;
 
 import com.bogdan.stolyarov.irregularverbs.fragments.AboutFragment;
 import com.bogdan.stolyarov.irregularverbs.fragments.ListOfVerbsFragment;
+import com.bogdan.stolyarov.irregularverbs.model.Verb;
 import com.support.android.designlibdemo.R;
 import com.bogdan.stolyarov.irregularverbs.fragments.LearnFragment;
 import com.bogdan.stolyarov.irregularverbs.fragments.TrainingFragment;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -105,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openListOfVerbs() {
         ListOfVerbsFragment listOfVerbsFragment = new ListOfVerbsFragment();
+        ArrayList<Verb>  verbs = new ArrayList<Verb>();
+        Verb verb = new Verb("Делать", "Do", "Did", "Done", true);
+        verbs.add(verb);
+        listOfVerbsFragment.setVerbs(verbs);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, listOfVerbsFragment).commit();

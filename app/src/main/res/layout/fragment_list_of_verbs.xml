@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:background="@color/accent_material_dark"
-        android:layout_gravity="center"
-        android:text="List of Verbs"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_of_verbs_text_view"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/list_of_verbs_list">
+
+    </ListView>
 </LinearLayout>
