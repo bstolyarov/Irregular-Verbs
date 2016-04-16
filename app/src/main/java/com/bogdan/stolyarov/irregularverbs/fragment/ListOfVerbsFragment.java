@@ -28,12 +28,12 @@ public class ListOfVerbsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_of_verbs, container, false);
         verbsList = (ListView) view.findViewById(R.id.list_of_verbs_list);
 
-
         ListOfVerbsAdapter adapter = new ListOfVerbsAdapter(getActivity(), verbs);
 
         AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter);
         alphaInAnimationAdapter.setAbsListView(verbsList);
         verbsList.setAdapter(alphaInAnimationAdapter);
+        verbsList.setDividerHeight(0);
 
         return view;
     }

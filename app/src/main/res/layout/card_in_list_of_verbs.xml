@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:ignore="overdraw"
     android:background="@drawable/card_background_white"
-
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/card_infinitive_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:padding="8dp">
 
     <TextView
-        android:id="@+id/card_second_form_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/CardView.Card.Style"
+        android:text="infinitive"
+        android:id="@+id/card_infinitive_text_view"/>
 
     <TextView
-        android:id="@+id/card_third_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/CardView.Card.Style"
+        android:text="second"
+        android:id="@+id/card_second_form_text_view"/>
 
+    <TextView
+        style="@style/CardView.Card.Style"
+        android:text="third"
+        android:id="@+id/card_third_text_view"/>
+
+    <TextView
+        style="@style/CardView.Card.Style"
+        android:text="translate"
+        android:id="@+id/translate_text_view"/>
 
 </LinearLayout>

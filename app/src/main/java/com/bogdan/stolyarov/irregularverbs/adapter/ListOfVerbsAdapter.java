@@ -27,6 +27,7 @@ public class ListOfVerbsAdapter extends BaseAdapter {
         public TextView infinitive;
         public TextView secondForm;
         public TextView thirdForm;
+        public TextView translate;
     }
 
     public ListOfVerbsAdapter(Activity context, ArrayList<Verb> verbs) {
@@ -47,6 +48,7 @@ public class ListOfVerbsAdapter extends BaseAdapter {
             viewHolder.infinitive = (TextView) cardView.findViewById(R.id.card_infinitive_text_view);
             viewHolder.secondForm = (TextView) cardView.findViewById(R.id.card_second_form_text_view);
             viewHolder.thirdForm = (TextView) cardView.findViewById(R.id.card_third_text_view);
+            viewHolder.translate = (TextView) cardView.findViewById(R.id.translate_text_view);
             cardView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) cardView.getTag();
@@ -56,6 +58,7 @@ public class ListOfVerbsAdapter extends BaseAdapter {
             viewHolder.infinitive.setText(verb.getInfinitive());
             viewHolder.secondForm.setText(verb.getSecondForm());
             viewHolder.thirdForm.setText(verb.getThirdForm());
+            viewHolder.translate.setText(verb.getTranslate());
         }
         return cardView;
     }

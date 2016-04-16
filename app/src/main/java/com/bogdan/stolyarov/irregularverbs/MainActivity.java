@@ -63,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
+            navigationView.getMenu().getItem(0).setChecked(true);
+            openListOfVerbs();
         }
 
 /*        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }*/
-
-
 //        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        tabLayout.setupWithViewPager(viewPager);
     }
@@ -78,14 +78,13 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         db = new DataBaseHelper(this);
         employees = db.getEmployees();
-
         verbs = new ArrayList<>();
         Verb verb;
         for (employees.moveToFirst(); !employees.isAfterLast(); employees.moveToNext()) {
             verb = new Verb();
             verb.setInfinitive(employees.getString(employees.getColumnIndex("INFINITIVE")));
             verb.setSecondForm(employees.getString(employees.getColumnIndex("SECOND_FORM")));
-            verb.setSecondForm(employees.getString(employees.getColumnIndex("THIRD_FORM")));
+            verb.setThirdForm(employees.getString(employees.getColumnIndex("THIRD_FORM")));
             verb.setTranslate(employees.getString(employees.getColumnIndex("TRANSLATE")));
             verbs.add(verb);
         }
@@ -140,13 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
     private void openListOfVerbs() {
         ListOfVerbsFragment listOfVerbsFragment = new ListOfVerbsFragment();
-//        ArrayList<Verb> verbs = new ArrayList<Verb>();
-//        Verb verb = new Verb("Делать", "Do", "Did", "Done", true);
-//        verbs.add(verb);
-        listOfVerbsFragment.setVerbs(this.verbs);
+        listOfVerbsFragment.setVerbs(verbs);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, listOfVerbsFragment).commit();
