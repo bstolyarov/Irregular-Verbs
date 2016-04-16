@@ -1,4 +1,4 @@
-package com.bogdan.stolyarov.irregularverbs.fragments;
+package com.bogdan.stolyarov.irregularverbs.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,14 +13,13 @@ import com.support.android.designlibdemo.R;
 /**
  * Created by bogdan on 14.02.2016.
  */
-public class LearnFragment extends Fragment {
+public class TrainingFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_learn, container, false);
-        TextView textView = (TextView) view.findViewById(R.id.learn_text_view);
+        View view = inflater.inflate(R.layout.fragment_training, container, false);
+        TextView textView = (TextView) view.findViewById(R.id.training_text_view);
         return view;
     }
-
 }

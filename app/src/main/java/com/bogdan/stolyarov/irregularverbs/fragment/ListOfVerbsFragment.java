@@ -1,4 +1,4 @@
-package com.bogdan.stolyarov.irregularverbs.fragments;
+package com.bogdan.stolyarov.irregularverbs.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

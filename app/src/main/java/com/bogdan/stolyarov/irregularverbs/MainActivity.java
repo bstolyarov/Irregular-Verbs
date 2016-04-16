@@ -1,5 +1,8 @@
 package com.bogdan.stolyarov.irregularverbs;
 
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -12,14 +15,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.bogdan.stolyarov.irregularverbs.fragments.AboutFragment;
-import com.bogdan.stolyarov.irregularverbs.fragments.ListOfVerbsFragment;
+import com.bogdan.stolyarov.irregularverbs.database.DataBaseHelper;
+import com.bogdan.stolyarov.irregularverbs.fragment.AboutFragment;
+import com.bogdan.stolyarov.irregularverbs.fragment.ListOfVerbsFragment;
 import com.bogdan.stolyarov.irregularverbs.model.Verb;
+import com.bogdan.stolyarov.irregularverbs.util.Constants;
 import com.support.android.designlibdemo.R;
-import com.bogdan.stolyarov.irregularverbs.fragments.LearnFragment;
-import com.bogdan.stolyarov.irregularverbs.fragments.TrainingFragment;
+import com.bogdan.stolyarov.irregularverbs.fragment.LearnFragment;
+import com.bogdan.stolyarov.irregularverbs.fragment.TrainingFragment;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,10 +41,15 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
 
+    private Cursor employees;
+    private DataBaseHelper db;
+    private ArrayList<Verb> verbs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initData();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,6 +75,22 @@ public class MainActivity extends AppCompatActivity {
 //        tabLayout.setupWithViewPager(viewPager);
     }
 
+    private void initData() {
+        db = new DataBaseHelper(this);
+        employees = db.getEmployees();
+
+        verbs = new ArrayList<>();
+        Verb verb;
+        for (employees.moveToFirst(); !employees.isAfterLast(); employees.moveToNext()) {
+            verb = new Verb();
+            verb.setInfinitive(employees.getString(employees.getColumnIndex("INFINITIVE")));
+            verb.setSecondForm(employees.getString(employees.getColumnIndex("SECOND_FORM")));
+            verb.setSecondForm(employees.getString(employees.getColumnIndex("THIRD_FORM")));
+            verb.setTranslate(employees.getString(employees.getColumnIndex("TRANSLATE")));
+            verbs.add(verb);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
@@ -67,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "onOptionsItemSelected");
         switch (item.getItemId()) {
             case android.R.id.home:
-                Log.d("MainActivity","home");
+                Log.d("MainActivity", "home");
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
@@ -108,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openListOfVerbs() {
         ListOfVerbsFragment listOfVerbsFragment = new ListOfVerbsFragment();
-        ArrayList<Verb>  verbs = new ArrayList<Verb>();
-        Verb verb = new Verb("Делать", "Do", "Did", "Done", true);
-        verbs.add(verb);
-        listOfVerbsFragment.setVerbs(verbs);
+//        ArrayList<Verb> verbs = new ArrayList<Verb>();
+//        Verb verb = new Verb("Делать", "Do", "Did", "Done", true);
+//        verbs.add(verb);
+        listOfVerbsFragment.setVerbs(this.verbs);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, listOfVerbsFragment).commit();
@@ -136,6 +171,17 @@ public class MainActivity extends AppCompatActivity {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, aboutFragment).commit();
+    }
+
+
+
+    private boolean isFirstRun() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        boolean isFirstRun = prefs.getBoolean(Constants.FIRST_RUN_KEY, true);
+        if (isFirstRun) {
+            prefs.edit().putBoolean(Constants.FIRST_RUN_KEY, false).apply();
+        }
+        return isFirstRun;
     }
 
 
