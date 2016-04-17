@@ -3,8 +3,10 @@ package com.bogdan.stolyarov.irregularverbs;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +22,9 @@ import com.bogdan.stolyarov.irregularverbs.fragment.AboutFragment;
 import com.bogdan.stolyarov.irregularverbs.fragment.ListOfVerbsFragment;
 import com.bogdan.stolyarov.irregularverbs.model.Verb;
 import com.bogdan.stolyarov.irregularverbs.util.Constants;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.support.android.designlibdemo.R;
 import com.bogdan.stolyarov.irregularverbs.fragment.LearnFragment;
 import com.bogdan.stolyarov.irregularverbs.fragment.TrainingFragment;
@@ -44,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private Cursor employees;
     private DataBaseHelper db;
     private ArrayList<Verb> verbs;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         }*/
 //        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 //        tabLayout.setupWithViewPager(viewPager);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initData() {
@@ -109,14 +122,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
- /*   private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new CheeseListFragment(), "Category 1");
-        adapter.addFragment(new CheeseListFragment(), "Category 2");
-        adapter.addFragment(new CheeseListFragment(), "Category 3");
-        viewPager.setAdapter(adapter);
-    }*/
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -141,33 +146,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void openListOfVerbs() {
         ListOfVerbsFragment listOfVerbsFragment = new ListOfVerbsFragment();
-        listOfVerbsFragment.setVerbs(verbs);
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(ListOfVerbsFragment.LIST_OF_VERBS_KEY, verbs);
+        listOfVerbsFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, listOfVerbsFragment).commit();
     }
 
     private void openLearn() {
         LearnFragment learnFragment = new LearnFragment();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(LearnFragment.LEARN_KEY, verbs);
+        learnFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, learnFragment).commit();
     }
 
     private void openTraining() {
         TrainingFragment trainingFragment = new TrainingFragment();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, trainingFragment).commit();
     }
 
     private void openAbout() {
         AboutFragment aboutFragment = new AboutFragment();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, aboutFragment).commit();
     }
-
 
 
     private boolean isFirstRun() {
@@ -178,6 +187,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return isFirstRun;
     }
-
-
 }

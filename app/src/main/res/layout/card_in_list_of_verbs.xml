@@ -9,22 +9,22 @@
     android:padding="8dp">
 
     <TextView
-        style="@style/CardView.Card.Style"
+        style="@style/List.CardView.Card.Style"
         android:text="infinitive"
         android:id="@+id/card_infinitive_text_view"/>
 
     <TextView
-        style="@style/CardView.Card.Style"
+        style="@style/List.CardView.Card.Style"
         android:text="second"
         android:id="@+id/card_second_form_text_view"/>
 
     <TextView
-        style="@style/CardView.Card.Style"
+        style="@style/List.CardView.Card.Style"
         android:text="third"
         android:id="@+id/card_third_text_view"/>
 
     <TextView
-        style="@style/CardView.Card.Style"
+        style="@style/List.CardView.Card.Style"
         android:text="translate"
         android:id="@+id/translate_text_view"/>
 

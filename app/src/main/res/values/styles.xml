@@ -36,12 +36,23 @@
     </style>
 
     <!--LIST OF VERBS FRAGMENT-->
-    <style name="CardView.Card.Style" parent="">
+    <style name="List.CardView.Card.Style" parent="">
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">4dp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--CARD OF VERBS FRAGMENT-->
+    <style name="CardView.Card.Style" parent="">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 

@@ -1,6 +1,7 @@
 package com.bogdan.stolyarov.irregularverbs.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,16 @@ import java.util.ArrayList;
  */
 public class ListOfVerbsFragment extends Fragment {
 
+    public static final String LIST_OF_VERBS_KEY = "ListOfVerbsFragment";
+
     private ArrayList<Verb> verbs;
     private ListView verbsList;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        checkArgs();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +45,18 @@ public class ListOfVerbsFragment extends Fragment {
         verbsList.setDividerHeight(0);
 
         return view;
+    }
+
+    private void checkArgs() {
+        if (getArguments() != null && getArguments().getParcelableArrayList(LIST_OF_VERBS_KEY) != null) {
+            verbs = getArguments().getParcelableArrayList(LIST_OF_VERBS_KEY);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
     }
 
     public void setVerbs(ArrayList<Verb> verbs) {

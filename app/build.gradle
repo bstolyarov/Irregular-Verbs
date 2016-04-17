@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId 'com.bogdan.stolyarov.irregularverbs'
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
     }
     buildTypes {
         release {
@@ -23,6 +23,7 @@ android {
 repositories {
     jcenter()
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -35,4 +36,7 @@ dependencies {
     compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    compile 'com.github.sembozdemir:ViewPagerArrowIndicator:1.0.0'
+    compile 'com.android.support:cardview-v7:23.0.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
