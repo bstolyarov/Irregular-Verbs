@@ -23,7 +23,6 @@ public class VerbsPagerAdapter extends FragmentStatePagerAdapter {
         this.verbs = verbs;
     }
 
-
     @Override
     public Fragment getItem(int position) {
         //TODO
